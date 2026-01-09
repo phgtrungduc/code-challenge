@@ -33,6 +33,7 @@ export abstract class BaseService<T> implements IBaseService<T> {
 
   async update(id: string, data: any): Promise<T> {
     await this.getById(id); // Check if exists
+    
     return await this.repository.update(id, data);
   }
 
