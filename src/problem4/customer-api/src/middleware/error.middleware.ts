@@ -1,15 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 
-export interface AppError extends Error {
-  statusCode?: number;
-}
-
 export const errorHandler = (
-  err: AppError,
+  err: any,
   req: Request,
   res: Response,
   next: NextFunction
-): void => {
+) => {
   console.error('Error:', err);
 
   const statusCode = err.statusCode || 500;
@@ -17,18 +13,14 @@ export const errorHandler = (
 
   res.status(statusCode).json({
     success: false,
-    message,
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+    error: message,
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
   });
 };
 
-export const notFoundHandler = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
+export const notFoundHandler = (req: Request, res: Response) => {
   res.status(404).json({
     success: false,
-    message: `Route ${req.originalUrl} not found`
+    error: 'Route not found',
   });
 };
