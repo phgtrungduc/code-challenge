@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.0">
+  <diagram name="High-Level Architecture" id="architecture">
+    <mxGraphModel dx="1042" dy="562" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="user1" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="User 1" vertex="1">
+          <mxGeometry height="80" width="40" x="80" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="user2" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="User 2" vertex="1">
+          <mxGeometry height="80" width="40" x="80" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="userN" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="User N" vertex="1">
+          <mxGeometry height="80" width="40" x="80" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="KklEE5V0MrG4r5RtzKhp-1" edge="1" parent="1" source="frontend" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="apiServer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="frontend" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;verticalAlign=top;" value="&lt;b&gt;Frontend (Web UI)&lt;/b&gt;&lt;br&gt;&lt;br&gt;- Display Scoreboard&lt;br&gt;- Handle User Actions&lt;br&gt;- WebSocket Client&lt;br&gt;- Real-time Updates" vertex="1">
+          <mxGeometry height="140" width="180" x="220" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="apiServer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=top;" value="&lt;b&gt;API Server&lt;/b&gt;&lt;br&gt;&lt;br&gt;- Authentication (JWT)&lt;br&gt;- Score Update Logic&lt;br&gt;- Leaderboard Calculation&lt;br&gt;- WebSocket Server&lt;br&gt;- Broadcasting" vertex="1">
+          <mxGeometry height="140" width="180" x="680" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="database" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;align=center;verticalAlign=top;" value="&lt;b&gt;Database&lt;/b&gt;&lt;br&gt;&lt;br&gt;Tables:&lt;br&gt;- users&lt;br&gt;- score_actions&lt;br&gt;&lt;br&gt;(Source of Truth)" vertex="1">
+          <mxGeometry height="140" width="160" x="910" as="geometry" />
+        </mxCell>
+        <mxCell id="redis" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#e1d5e7;strokeColor=#9673a6;align=center;verticalAlign=top;" value="&lt;b&gt;Redis&lt;/b&gt;&lt;br&gt;&lt;br&gt;- ZSET (leaderboard)&lt;br&gt;  Scores &amp; Rankings&lt;br&gt;&lt;br&gt;- HASH (user:{id})&lt;br&gt;  User Info Cache" vertex="1">
+          <mxGeometry height="140" width="160" x="960" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="edge1" edge="1" parent="1" source="user1" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="frontend" value="Perform&#xa;Actions">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge2" edge="1" parent="1" source="user2" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="frontend" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge3" edge="1" parent="1" source="userN" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="frontend" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge5" edge="1" parent="1" source="frontend" style="endArrow=classic;startArrow=classic;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="apiServer" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge6" edge="1" parent="1" source="apiServer" style="endArrow=classic;startArrow=classic;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="database" value="Read/Write&#xa;User Scores">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge7" edge="1" parent="1" source="apiServer" style="endArrow=classic;startArrow=classic;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="redis" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f5f5f5;strokeColor=#666666;" value="━━━ HTTP/TCP&lt;br&gt;- - - - WebSocket" vertex="1">
+          <mxGeometry height="50" width="140" x="450" y="364" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
